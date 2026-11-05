@@ -95,8 +95,13 @@ def main():
     ])
 
     # Stage 8: PDF Report Generation
-    run_stage("Stage 8: Comprehensive PDF Technical Report Generation", [
+    run_stage("Stage 8A: Comprehensive PDF Technical Report Generation", [
         VENV_PYTHON, os.path.join(PROJECT_ROOT, "reports", "generate_pdf_report.py")
+    ])
+
+    # Stage 8B: Word Report Generation
+    run_stage("Stage 8B: Formal Academic Word Report (.docx) Generation", [
+        VENV_PYTHON, os.path.join(PROJECT_ROOT, "reports", "generate_word_report.py")
     ])
 
     print("""
@@ -116,3 +121,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

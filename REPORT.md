@@ -337,3 +337,4 @@ In production deployments on YARN or Kubernetes:
 
 ## 9. Conclusion
 This project designed, implemented, and validated an enterprise-grade distributed multi-model analytics architecture for large-scale e-commerce datasets. By strategically delegating operational document transactions to MongoDB, high-velocity time-series clickstreams to Apache HBase, and large-scale joins and analytical computations to Apache Spark, the platform eliminated single-system bottlenecks. Empirical benchmarks verified sub-millisecond HBase scan latencies, 65% faster Spark queries via Broadcast Hash Joins, and high-impact business discoveries spanning customer lifetime value, market basket cross-selling affinity, and conversion funnel optimization.
+

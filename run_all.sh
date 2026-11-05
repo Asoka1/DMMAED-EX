@@ -61,9 +61,13 @@ echo "[*] Stage 7: Generating 300-DPI Publication Visualizations..."
 $PYTHON_CMD visualizations/generate_visualizations.py
 
 # 8. Report Compilation
-echo "[*] Stage 8: Compiling Academic Technical Report (PDF)..."
+echo "[*] Stage 8A: Compiling Academic Technical Report (PDF)..."
 $PYTHON_CMD reports/generate_pdf_report.py
+
+echo "[*] Stage 8B: Compiling Academic Technical Report (Word .docx)..."
+$PYTHON_CMD reports/generate_word_report.py
 
 echo "========================================================================"
 echo "    🎉 ALL STAGES COMPLETED SUCCESSFULLY WITH 100% REPRODUCIBILITY!     "
 echo "========================================================================"
+

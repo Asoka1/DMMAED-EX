@@ -218,3 +218,4 @@ PySpark discovered high-affinity product pairs with statistical lift exceeding 7
 
 ## 📄 License & Academic Integrity
 This project is developed by **Asoka Niyonsaba Jean Claude (Student ID: 101410)** as the Final Examination Project for **Big Data Analytics (MSDA 2026)** at the **Adventist University of Central Africa (AUCA)**. All source code, analysis pipelines, and reports adhere to the AUCA academic integrity policy.
+
