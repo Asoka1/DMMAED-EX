@@ -1,0 +1,63 @@
+# ==============================================================================
+# hbase_schema.txt
+# HBase Shell DDL & Administration Commands
+# AUCA Big Data Analytics Final Project
+# Author: Asoka Niyonsaba Jean Claude (ID: 101410)
+# ==============================================================================
+
+# Disable and drop prior versions if recreating
+# disable 'user_sessions'
+# drop 'user_sessions'
+# disable 'product_metrics'
+# drop 'product_metrics'
+
+# ------------------------------------------------------------------------------
+# 1. TABLE: user_sessions
+# Description: High-throughput time-series storage for clickstream sessions.
+# Row Key Pattern: {user_id}#{reverse_timestamp}#{session_id}
+#   - user_id: 11-char string (e.g., 'user_000042')
+#   - reverse_timestamp: 10-digit complement (9999999999 - epoch_seconds)
+#     Ensures lexicographical sort orders recent sessions first!
+#   - session_id: 15-char unique session string
+# Column Families:
+#   - 's': Session core attributes (start_time, end_time, duration, conversion, referrer)
+#   - 'd': Client device profile (type, os, browser)
+#   - 'g': Geo data (city, state, country, ip)
+#   - 'm': Quantitative engagement metrics (page_count, product_views, cart_items)
+# ------------------------------------------------------------------------------
+
+create 'user_sessions', 
+  {NAME => 's', VERSIONS => 1, COMPRESSION => 'SNAPPY', BLOOMFILTER => 'ROW', BLOCKCACHE => true, TTL => 7776000},
+  {NAME => 'd', VERSIONS => 1, COMPRESSION => 'SNAPPY', BLOOMFILTER => 'ROW', BLOCKCACHE => true},
+  {NAME => 'g', VERSIONS => 1, COMPRESSION => 'SNAPPY', BLOOMFILTER => 'ROW', BLOCKCACHE => true},
+  {NAME => 'm', VERSIONS => 1, COMPRESSION => 'SNAPPY', BLOOMFILTER => 'ROW', BLOCKCACHE => true}
+
+# ------------------------------------------------------------------------------
+# 2. TABLE: product_metrics
+# Description: Wide-column aggregated time-series of product performance per day.
+# Row Key Pattern: {product_id}#{YYYY-MM-DD} (e.g., 'prod_00123#2026-03-15')
+# Column Families:
+#   - 'd': Daily interaction metrics (views, cart_adds, conversions, revenue)
+#   - 'i': Inventory & pricing state (closing_stock, price)
+# ------------------------------------------------------------------------------
+
+create 'product_metrics',
+  {NAME => 'd', VERSIONS => 3, COMPRESSION => 'SNAPPY', BLOOMFILTER => 'ROWCOL', BLOCKCACHE => true},
+  {NAME => 'i', VERSIONS => 5, COMPRESSION => 'SNAPPY', BLOOMFILTER => 'ROWCOL', BLOCKCACHE => true}
+
+# ------------------------------------------------------------------------------
+# SAMPLE HBASE SHELL QUERY COMMANDS
+# ------------------------------------------------------------------------------
+
+# 1. Get a specific session row
+# get 'user_sessions', 'user_000042#8258380800#sess_a7b3c9d8e2'
+
+# 2. Scan the 5 most recent sessions for a specific user using RowPrefixFilter
+# scan 'user_sessions', {ROWPREFIXFILTER => 'user_000042#', LIMIT => 5}
+
+# 3. Scan sessions retrieving only column families 's' and 'm'
+# scan 'user_sessions', {ROWPREFIXFILTER => 'user_000042#', COLUMNS => ['s:start_time', 's:duration_seconds', 's:conversion_status', 'm:page_count'], LIMIT => 10}
+
+# 4. Scan product metrics for product prod_00123 across a date range
+# scan 'product_metrics', {STARTROW => 'prod_00123#2026-01-01', STOPROW => 'prod_00123#2026-04-01'}
+
