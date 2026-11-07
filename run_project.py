@@ -106,7 +106,7 @@ def main():
 
     print("""
     ==========================================================================
-    🎉 ALL PROJECT STAGES EXECUTED AND VERIFIED WITH 100% SUCCESS!
+     ALL PROJECT STAGES EXECUTED AND VERIFIED WITH 100% SUCCESS!
     ==========================================================================
     - MongoDB Document Schemas & Aggregations: Verified
     - HBase Wide-Column Scans & Sub-ms Latency: Verified
