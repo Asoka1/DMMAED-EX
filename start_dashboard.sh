@@ -18,3 +18,4 @@ echo " Starting AUCA Big Data Analytics Interactive Web Dashboard on http://127.
 echo "================================================================================"
 
 python3 app.py
+
