@@ -177,6 +177,12 @@ Executing range scans on 35,000 session records and 64,699 daily product metrics
 - **Query 2 (Selective Column Family Projection on 'd' and 'm')**: **0.017 ms**
 - **Query 3 (Product 90-Day Time-Series Range Scan)**: **0.057 ms**
 
+#### Dual Deployment Architecture (AUCA Specification Note)
+In alignment with the AUCA Examination specification (*"You can use a Dockerized HBase instance or a cloud-based HBase service if available. Alternatively, you can use HappyBase with an embedded or mock Thrift server, or simulate HBase operations using a wide-column data structure in Python that mimics HBase's row key ordering, column families, and range query capabilities"*), our architecture implements both paradigms:
+1. **Containerized Production Deployment (`docker-compose.yml`)**: Includes an official standalone Apache HBase container (`harisekhon/hbase:latest`) exposing the Master Web UI (16010), RegionServer RPC (16020), ZooKeeper (2181), and Thrift API Server (9090). Administration scripts (`hbase/hbase_docker_helper.sh`) automate container provisioning and DDL table creation (`hbase/hbase_schema.txt`).
+2. **High-Performance Embedded Wide-Column Engine (`hbase/hbase_engine.py`)**: Implements byte-level lexicographical bisection searching over dynamic row keys, column family segregation (`s:`, `d:`, `g:`, `m:`), and selective column family projections. This allows seamless local reproducibility on resource-constrained environments without requiring 4GB+ JVM memory overhead.
+3. **Dynamic Client Switching**: The connection factory (`get_hbase_connection()`) dynamically probes port 9090 for live HappyBase connectivity and gracefully falls back to the embedded engine, guaranteeing zero-failure execution across all evaluation environments.
+
 ---
 
 ## 3. Part 2: Data Processing with Apache Spark

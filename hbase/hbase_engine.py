@@ -114,11 +114,34 @@ class HBaseConnection:
 # Global shared instance for simulation and persistent in-process queries
 _ENGINE = None
 
-def get_hbase_connection():
+def get_hbase_connection(host=None, port=None):
+    """
+    Returns an HBase connection.
+    Attempts to connect to a live Dockerized/remote HBase instance via HappyBase (port 9090)
+    if available. Otherwise, falls back gracefully to the embedded wide-column engine.
+    """
     global _ENGINE
+    host = host or os.environ.get("HBASE_HOST", "localhost")
+    port = int(port or os.environ.get("HBASE_THRIFT_PORT", 9090))
+
+    # 1. Check if live HappyBase / Thrift service is accessible
+    try:
+        import happybase
+        hb_conn = happybase.Connection(host=host, port=port, timeout=1500)
+        hb_conn.open()
+        # Verify connection by testing tables list
+        hb_conn.tables()
+        print(f"[HBase Client] Connected to LIVE Dockerized HBase cluster at {host}:{port}")
+        return hb_conn
+    except Exception:
+        # Fall back to high-performance wide-column engine
+        pass
+
+    # 2. Embedded Wide-Column Engine (simulating exact HBase access patterns)
     if _ENGINE is None:
-        _ENGINE = HBaseConnection()
+        _ENGINE = HBaseConnection(host=host, port=port)
         _ENGINE.create_table("user_sessions", ["s", "d", "g", "m"])
         _ENGINE.create_table("product_metrics", ["d", "i"])
     return _ENGINE
+
 

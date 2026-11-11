@@ -1,0 +1,83 @@
+version: '3.8'
+
+# ==============================================================================
+# AUCA Big Data Analytics - Distributed Multi-Model Infrastructure
+# Student: Asoka Niyonsaba Jean Claude (Student ID: 101410)
+# ==============================================================================
+# Services:
+# 1. hbase: Standalone Apache HBase + ZooKeeper + Thrift API Server
+# 2. mongodb: Document Store with BSON schema validation & compound indexes
+# 3. web_dashboard: Interactive Flask Analytics Platform
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. Apache HBase Standalone Instance (with Thrift Server for Python/HappyBase)
+  # ----------------------------------------------------------------------------
+  hbase:
+    image: harisekhon/hbase:latest
+    container_name: auca_hbase_cluster
+    hostname: hbase
+    ports:
+      - "16010:16010" # HBase Master Web UI
+      - "9090:9090"   # HBase Thrift Server (HappyBase API)
+      - "2181:2181"   # Apache ZooKeeper Client Port
+      - "16000:16000" # HBase Master RPC
+      - "16020:16020" # HBase RegionServer RPC
+      - "16030:16030" # HBase RegionServer Info Web UI
+    environment:
+      - HBASE_SERVER=standalone
+    volumes:
+      - hbase_data:/hbase-data
+      - ./hbase/hbase_schema.txt:/opt/hbase/conf/hbase_schema.txt:ro
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 9090 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ----------------------------------------------------------------------------
+  # 2. MongoDB Document Store
+  # ----------------------------------------------------------------------------
+  mongodb:
+    image: mongo:6.0
+    container_name: auca_mongodb_cluster
+    ports:
+      - "27017:27017" # MongoDB Default Port
+    environment:
+      - MONGO_INITDB_DATABASE=ecommerce_analytics
+    volumes:
+      - mongo_data:/data/db
+      - ./mongodb/schema_validation.js:/docker-entrypoint-initdb.d/schema_validation.js:ro
+    restart: unless-stopped
+
+  # ----------------------------------------------------------------------------
+  # 3. AUCA Interactive Web Dashboard
+  # ----------------------------------------------------------------------------
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auca_analytics_dashboard
+    ports:
+      - "8080:8080"
+    environment:
+      - HBASE_HOST=hbase
+      - HBASE_THRIFT_PORT=9090
+      - MONGO_URI=mongodb://mongodb:27017/ecommerce_analytics
+      - PORT=8080
+    depends_on:
+      - hbase
+      - mongodb
+    volumes:
+      - ./data:/app/data
+      - ./visualizations:/app/visualizations
+      - ./reports:/app/reports
+    restart: unless-stopped
+
+volumes:
+  hbase_data:
+    driver: local
+  mongo_data:
+    driver: local
