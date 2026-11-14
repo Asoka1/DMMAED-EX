@@ -109,26 +109,32 @@ def generate_report():
     pdf.set_text_color(50, 70, 110)
     pdf.cell(174, 6, "Strategic Application of MongoDB, HBase, and Apache Spark", 0, 1, "C")
 
-    pdf.ln(35)
+    pdf.ln(28)
     # Metadata Block
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(50, 50, 50)
     meta = [
-        ("Course:", "Big Data Analytics (MSDA 2026)"),
-        ("Project Type:", "Final Examination Comprehensive Project"),
-        ("Author / Student:", "Asoka Niyonsaba Jean Claude"),
-        ("Student ID:", "101410"),
-        ("Submission Date:", "November 11, 2026"),
-        ("Technology Stack:", "MongoDB (Document), Apache HBase (Wide-Column), Apache Spark (Distributed Engine)"),
-        ("Dataset Scale:", "35,000 Clickstream Sessions, 15,000 Transactions, 2,500 Users, 1,200 Products")
+        ("Course:", "Big Data Analytics (MSDA 2026)", None),
+        ("Project Type:", "Final Examination Comprehensive Project", None),
+        ("Author / Student:", "Asoka Niyonsaba Jean Claude", None),
+        ("Student ID:", "101410", None),
+        ("GitHub Repository:", "https://github.com/Asoka1/DMMAED-EX", "https://github.com/Asoka1/DMMAED-EX"),
+        ("Submission Date:", "November 11, 2026", None),
+        ("Technology Stack:", "MongoDB (Document), Apache HBase (Wide-Column), Apache Spark (Distributed Engine)", None),
+        ("Dataset Scale:", "35,000 Clickstream Sessions, 15,000 Transactions, 2,500 Users, 1,200 Products", None)
     ]
-    for lbl, val in meta:
-        pdf.cell(50, 7, lbl, 0, 0, "R")
+    for lbl, val, lnk in meta:
+        pdf.cell(50, 6.5, lbl, 0, 0, "R")
         pdf.set_font("Helvetica", "B", 10)
-        pdf.cell(130, 7, f"  {val}", 0, 1, "L")
+        if lnk:
+            pdf.set_text_color(20, 80, 180)
+            pdf.cell(130, 6.5, f"  {val}", 0, 1, "L", link=lnk)
+            pdf.set_text_color(50, 50, 50)
+        else:
+            pdf.cell(130, 6.5, f"  {val}", 0, 1, "L")
         pdf.set_font("Helvetica", "", 10)
 
-    pdf.ln(12)
+    pdf.ln(8)
     # Abstract
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(20, 50, 100)

@@ -4,6 +4,7 @@
 **Academic Institution**: Adventist University of Central Africa (AUCA)  
 **Author / Student**: Asoka Niyonsaba Jean Claude  
 **Student ID**: 101410  
+**GitHub Repository**: [https://github.com/Asoka1/DMMAED-EX](https://github.com/Asoka1/DMMAED-EX)  
 **Technology Stack**: MongoDB (Document Store), Apache HBase (Wide-Column Store), Apache Spark 4.3.0 (Distributed Processing Engine), Python 3.11, PySpark, Matplotlib, Seaborn  
 **Submission Date**: November 11, 2026  
 

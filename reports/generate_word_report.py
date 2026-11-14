@@ -92,16 +92,17 @@ def create_word_report():
 
     # Metadata Block
     doc.add_paragraph().paragraph_format.space_after = Pt(10)
-    meta_table = doc.add_table(rows=6, cols=2)
-    meta_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     meta_data = [
         ("Author / Student:", "Asoka Niyonsaba Jean Claude"),
         ("Student ID:", "101410"),
+        ("GitHub Repository:", "https://github.com/Asoka1/DMMAED-EX"),
         ("Course:", "Big Data Analytics (MSDA 2026)"),
         ("Technology Stack:", "MongoDB (Document), Apache HBase (Wide-Column), Apache Spark 4.3.0 (Distributed Engine)"),
         ("Dataset Scale:", "35,000 Clickstream Sessions, 15,000 Transactions, 2,500 Users, 1,200 Products"),
         ("Submission Date:", "November 11, 2026")
     ]
+    meta_table = doc.add_table(rows=len(meta_data), cols=2)
+    meta_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     for row_idx, (k, v) in enumerate(meta_data):
         c0 = meta_table.cell(row_idx, 0)
         c1 = meta_table.cell(row_idx, 1)
@@ -116,7 +117,11 @@ def create_word_report():
         r0.font.color.rgb = RGBColor(60, 60, 60)
         r1 = p1.add_run(f"  {v}")
         r1.font.size = Pt(9.5)
-        r1.font.color.rgb = RGBColor(20, 20, 20)
+        if "github.com" in v:
+            r1.font.color.rgb = RGBColor(20, 80, 180)
+            r1.font.underline = True
+        else:
+            r1.font.color.rgb = RGBColor(20, 20, 20)
         set_cell_margins(c0, top=60, bottom=60, left=80, right=80)
         set_cell_margins(c1, top=60, bottom=60, left=80, right=80)
 
