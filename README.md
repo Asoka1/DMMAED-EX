@@ -14,7 +14,7 @@
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 This project presents an enterprise-scale distributed multi-model analytics architecture applied to large-scale synthetic e-commerce data spanning **90 days of commercial operations** (35,000 user browsing sessions, 15,000 transactions, 2,500 customer profiles, and 1,200 catalog products).
 
 The architecture strategically leverages the distinct strengths of:
@@ -24,7 +24,7 @@ The architecture strategically leverages the distinct strengths of:
 
 ---
 
-## 🏗️ Architecture & Data Flow
+##  Architecture & Data Flow
 
 ```
                                   E-COMMERCE DATA GENERATION TIER
@@ -65,7 +65,7 @@ The architecture strategically leverages the distinct strengths of:
 
 ---
 
-## 📂 Repository Directory Structure
+##  Repository Directory Structure
 
 ```
 DMMAED-EXAM/
@@ -112,7 +112,7 @@ DMMAED-EXAM/
 
 ---
 
-## ⚡ Quick Start & Reproduction Guide
+##  Quick Start & Reproduction Guide
 
 ### 1. Prerequisites
 - Python 3.11+
@@ -191,7 +191,7 @@ python3 reports/generate_pdf_report.py
 
 ---
 
-## 📊 Summary of Key Findings
+##  Summary of Key Findings
 
 ### 1. Multi-Engine Query Latency Benchmarks
 | Database / Query Engine | Workload Type | Execution Latency | Speedup vs Baseline |
@@ -222,26 +222,22 @@ PySpark discovered high-affinity product pairs with statistical lift exceeding 7
 
 ---
 
-## 🏆 Project Rubric & Compliance Matrix
+##  Project Rubric & Compliance Matrix
 
 | Requirement from AUCA Specification | Implemented Module | Status |
 |---|---|:---:|
-| **Synthetic Dataset Generation** | `scripts/dataset_generator_modular.py` | ✅ Verified |
-| **MongoDB Product, User, Transaction Modeling** | `mongodb/schema_validation.js`, `mongo_loader.py` | ✅ Verified |
-| **Two Non-Trivial MongoDB Aggregations** | `mongodb/mongo_aggregations.py` (3 Pipelines) | ✅ Verified |
-| **HBase Schema & Reverse-Timestamp Row Keys** | `hbase/hbase_schema.txt`, `hbase_loader.py` | ✅ Verified |
-| **HBase User Activity Queries & Latency Benchmarks** | `hbase/hbase_queries.py` (Sub-ms results) | ✅ Verified |
-| **Spark Batch Cleaning & Schema Normalization** | `spark/spark_batch_processing.py` | ✅ Verified |
-| **Spark Recommendation Indicators (Support/Conf/Lift)** | `spark/spark_batch_processing.py` | ✅ Verified |
-| **Spark User Cohort Purchasing Retention Analysis** | `spark/spark_batch_processing.py` | ✅ Verified |
-| **Spark SQL Multi-Model Federation & Broadcast Joins** | `spark/spark_sql_analytics.py` | ✅ Verified |
-| **Integrated Multi-Model Queries (CLV & Funnel)** | `integration/integrated_analytics.py` | ✅ Verified |
-| **3-4 Publication Visualizations (300 DPI)** | `visualizations/generate_visualizations.py` (6 Charts) | ✅ Verified |
-| **Technical Report (PDF, Target 6-8 pages)** | `reports/AUCA_Final_Project_Report_Asoka_101410.pdf` (8 Pages) | ✅ Verified |
-| **Comprehensive Markdown Technical Report** | `REPORT.md` (35+ KB) | ✅ Verified |
+| **Synthetic Dataset Generation** | `scripts/dataset_generator_modular.py` | Verified |
+| **MongoDB Product, User, Transaction Modeling** | `mongodb/schema_validation.js`, `mongo_loader.py` | Verified |
+| **Two Non-Trivial MongoDB Aggregations** | `mongodb/mongo_aggregations.py` (3 Pipelines) | Verified |
+| **HBase Schema & Reverse-Timestamp Row Keys** | `hbase/hbase_schema.txt`, `hbase_loader.py` | Verified |
+| **HBase User Activity Queries & Latency Benchmarks** | `hbase/hbase_queries.py` (Sub-ms results) | Verified |
+| **Spark Batch Cleaning & Schema Normalization** | `spark/spark_batch_processing.py` | Verified |
+| **Spark Recommendation Indicators (Support/Conf/Lift)** | `spark/spark_batch_processing.py` | Verified |
+| **Spark User Cohort Purchasing Retention Analysis** | `spark/spark_batch_processing.py` | Verified |
+| **Spark SQL Multi-Model Federation & Broadcast Joins** | `spark/spark_sql_analytics.py` | Verified |
+| **Integrated Multi-Model Queries (CLV & Funnel)** | `integration/integrated_analytics.py` | Verified |
+| **3-4 Publication Visualizations (300 DPI)** | `visualizations/generate_visualizations.py` (6 Charts) | Verified |
+| **Technical Report (PDF, Target 6-8 pages)** | `reports/AUCA_Final_Project_Report_Asoka_101410.pdf` (8 Pages) | Verified |
+| **Comprehensive Markdown Technical Report** | `REPORT.md` (35+ KB) | Verified |
 
 ---
-
-## 📄 License & Academic Integrity
-This project is developed by **Asoka Niyonsaba Jean Claude (Student ID: 101410)** as the Final Examination Project for **Big Data Analytics (MSDA 2026)** at the **Adventist University of Central Africa (AUCA)**. All source code, analysis pipelines, and reports adhere to the AUCA academic integrity policy.
-
