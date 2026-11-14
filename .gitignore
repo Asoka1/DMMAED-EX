@@ -23,3 +23,9 @@ Thumbs.db
 # Matplotlib cache
 .matplotlib/
 
+# Defense & Presentation internal preparation notes (local only)
+DEFENSE_*
+*presentation*
+*defense*
+
+
