@@ -912,16 +912,18 @@ def serve_visualization(filename):
 
 @app.route("/api/download/docx")
 def download_docx():
-    path = os.path.join(REPORTS_DIR, "AUCA_Final_Project_Report_Asoka_101410.docx")
-    if os.path.exists(path):
-        return send_file(path, as_attachment=True, download_name="AUCA_Final_Project_Report_Asoka_101410.docx")
+    for name in ["Final_Project_Asoka_Technical_Report_ID_101410.docx", "AUCA_Final_Project_Report_Asoka_101410.docx"]:
+        path = os.path.join(REPORTS_DIR, name)
+        if os.path.exists(path):
+            return send_file(path, as_attachment=True, download_name=name)
     return "Word report not found", 404
 
 @app.route("/api/download/pdf")
 def download_pdf():
-    path = os.path.join(REPORTS_DIR, "AUCA_Final_Project_Report_Asoka_101410.pdf")
-    if os.path.exists(path):
-        return send_file(path, as_attachment=True, download_name="AUCA_Final_Project_Report_Asoka_101410.pdf")
+    for name in ["Final_Project_Asoka_Technical_Report_ID_101410.pdf", "AUCA_Final_Project_Report_Asoka_101410.pdf"]:
+        path = os.path.join(REPORTS_DIR, name)
+        if os.path.exists(path):
+            return send_file(path, as_attachment=True, download_name=name)
     return "PDF report not found", 404
 
 @app.route("/api/pipeline/run", methods=["POST"])

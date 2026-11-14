@@ -19,7 +19,7 @@ from docx.oxml.ns import nsdecls, qn
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 VIZ_DIR = os.path.join(PROJECT_ROOT, "visualizations")
-OUTPUT_DOCX = os.path.join(PROJECT_ROOT, "reports", "AUCA_Final_Project_Report_Asoka_101410.docx")
+OUTPUT_DOCX = os.path.join(PROJECT_ROOT, "reports", "Final_Project_Asoka_Technical_Report_ID_101410.docx")
 
 
 def set_cell_background(cell, fill_hex):
